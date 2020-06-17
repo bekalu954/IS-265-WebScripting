@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>English to Metric Converter</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="converter.js"></script>
+    </head>
+    <body style="background-color: lightskyblue">
+        <script type="text/javascript">
+            var $ = function(id) {
+                return document.getElementById(id);
+            };
+            function clrscrn() {
+                $("convForm").reset();
+                $("inival").focus();
+            }
+            window.onload = function() {
+                $("clear").onclick = clrscrn;
+                $("convert").onclick = convert;
+                $("inival").focus();
+            };
+            function convert() {
+                var initv = $("initval");
+                var iv = parseFloat(initv.value);
+                if (isNaN(iv)) {
+                    alert("Please enter a numeric starting value.");
+                    initv.focus();
+                    return;
+                }
+                //alert("input value validated as numeric." + iv);
+                var cT = document.getElementsByName("cType");
+                if (cT[0].checked) {
+                    //to celsius
+                    if (isValid(iv,0)) {
+                        $("result").value = iv + " Fahrenheit = " +
+                                        FtoC(iv).toFixed(3) + " Celsius.";
+                    } else {
+                        alert("Fahrenheit must be non-negative.");
+                    }
+                    
+                } else if (cT[1].checked) {
+                    //to K
+                    if (isValid(iv,0)) {
+                        $("result").value = iv + " miles = " +
+                                        MtoK(iv).toFixed(3) + " Killometeres.";
+                    } else {
+                        alert("Miles must be non-negative.");
+                    }
+                } else if (cT[2].checked) {
+                    //to G
+                    if (isValid(iv,0)) {
+                        $("result").value = iv + " ounces = " +
+                                       OtoG(iv) + " grams.";
+                    } else {
+                        alert("Ounces must be non-negative.");
+                    }
+                } else if (cT[3].checked) {
+                    //to Fahrenheit
+                    if (isValid(iv,0)) {
+                        $("result").value = iv + " Celsius = " +
+                                        FtoC(iv).toFixed(3) + " Fahrenheit.";
+                    } else {
+                        alert("Celsius must be non-negative.");
+                    }
+                }else {
+                    alert("Please select conversion type.");
+                }
+                return;
+            };
+         
+         </script>
+      <h1>English to Metric</h1>
+          <p>Select the conversion and enter the English measurement you wish to convert:<br></p>
+      <form name="convForm" id="convForm" action="" method="post">
+          <p>Conversion type: <br ></p>
+          <p>
+          <input type="radio" id="toC" name="cType" value="toCelsius">Fahrenheit To Celsius<br>
+          <input type="radio" id="toK" name="cType" value="toKilometers">Miles To Kilometers<br>
+          <input type="radio" id="toG" name="cType" value="toGrams">Ounces To grams<br>
+          <input type="radio" id="toF" name="cType" value="tofahrenheits">Celsius To Fahrenheit<br>
+          <br ><br >
+          <input type="text" id="initval" name="initval">
+          <br ><br >
+          <input type="button" id="convert" name="convert" value="Convert">
+          <br ><br ></p>
+          <p>Result: <br ></p>
+          <input type ="text" id="result" name="result" style="width: 300px;">
+          <br ><br >
+          <input type="button" id="clear" name="clear" value="Clear">
+      </form>
+    </body>
+</html>
